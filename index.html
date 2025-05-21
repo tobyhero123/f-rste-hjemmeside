@@ -3,13 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>Gem tal med localStorage</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Indtast et tal</h1>
   <input type="number" id="talfelt" placeholder="Skriv et tal">
   <p id="status"></p>
 
-  <script src="script.js"></script>
+  <script>
+    const felt = document.getElementById("talfelt");
+    const status = document.getElementById("status");
+
+    // Når siden loader
+    window.addEventListener("DOMContentLoaded", function() {
+      const gemtTal = localStorage.getItem("mitTal");
+      if (gemtTal !== null) {
+        felt.value = gemtTal;
+        status.textContent = "Tidligere gemt tal: " + gemtTal;
+      }
+    });
+
+    // Når man skriver i inputfeltet
+    felt.addEventListener("input", function() {
+      localStorage.setItem("mitTal", felt.value);
+      status.textContent = "Gemmer: " + felt.value;
+    });
+  </script>
 </body>
 </html>
